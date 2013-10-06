@@ -51,17 +51,59 @@ from collections import Counter
 # print 'Number of A grades: %s' % grades['A']
 # print grades.most_common()
 
+search_words = [
+'fuck',
+'moron',
+'retard',
+'loser',
+'stupid',
+'sick',
+'dick',
+'ass',
+'nigga',
+'nigger',
+'pussy',
+'bitch',
+'faggot',
+'idiot',
+'crap',
+
+]
+
+punc=('.')
+
+dirty_comments = 0
+total_rows = 0
+
+
 grades = collections.Counter()
 with open('train2.csv') as input_file:
         for row in csv.reader(input_file, delimiter=','):
-            print row[2]
-            split_words = row[2].split()
-            print split_words
+            #print row[2]
+            #print row[2].replace(punc,"")
+            total_rows = total_rows + 1    
+            split_words = row[2].replace(punc,"").split()
+            #print split_words
             cnt = Counter(split_words)
 
-            print cnt
+            #print cnt
+
+            #Run the split words and check against our dirty words:
+            for word in search_words:
+                #print word
+                if cnt[word] > 0:
+                    dirty_comments = dirty_comments + 1
+                    break
 
 
+        print "number of rows"
+        print total_rows
+
+        print "dirty comments"
+        print dirty_comments
+
+
+            #cnt holds the results of each check.    
             #print cnt["fuck"]
 
 
