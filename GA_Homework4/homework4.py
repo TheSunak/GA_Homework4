@@ -75,7 +75,6 @@ search_words = [
 'fat',
 'ugly',
 'hate',
-
 ]
 
 punc=('.')
@@ -121,7 +120,7 @@ with open('test.csv') as input_file:
         print "number of rows"
         print total_rows
 
-        print "dirty comments"
+        print "number of insults"
         print dirty_comments
 
          
