@@ -55,6 +55,7 @@ search_words = [
 'fuck',
 'fucking',
 'moron',
+'morons',
 'retard',
 'loser',
 'stupid',
@@ -75,6 +76,11 @@ search_words = [
 'fat',
 'ugly',
 'hate',
+'wtf',
+'racist',
+'smack',
+'pervert',
+'perverted',
 ]
 
 punc=('.')
@@ -84,7 +90,7 @@ total_rows = 0
 insult = 0
 
 grades = collections.Counter()
-with open('test.csv') as input_file:
+with open('train.csv') as input_file:
         with open('output.csv', 'w') as csvoutput:
             writer = csv.writer(csvoutput)
             for row in csv.reader(input_file, delimiter=','):
