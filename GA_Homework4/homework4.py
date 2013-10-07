@@ -53,6 +53,7 @@ from collections import Counter
 
 search_words = [
 'fuck',
+'fucking',
 'moron',
 'retard',
 'loser',
@@ -67,6 +68,13 @@ search_words = [
 'faggot',
 'idiot',
 'crap',
+'damn',
+'fool',
+'fag',
+'gay',
+'fat',
+'ugly',
+'hate',
 
 ]
 
@@ -74,33 +82,49 @@ punc=('.')
 
 dirty_comments = 0
 total_rows = 0
-
+insult = 0
 
 grades = collections.Counter()
-with open('train2.csv') as input_file:
-        for row in csv.reader(input_file, delimiter=','):
-            #print row[2]
-            #print row[2].replace(punc,"")
-            total_rows = total_rows + 1    
-            split_words = row[2].replace(punc,"").split()
-            #print split_words
-            cnt = Counter(split_words)
+with open('test.csv') as input_file:
+        with open('output.csv', 'w') as csvoutput:
+            writer = csv.writer(csvoutput)
+            for row in csv.reader(input_file, delimiter=','):
+                
+                row = map(str.lower,row)
+                
+                print row
 
-            #print cnt
+                insult = 0
 
-            #Run the split words and check against our dirty words:
-            for word in search_words:
-                #print word
-                if cnt[word] > 0:
-                    dirty_comments = dirty_comments + 1
-                    break
+                total_rows = total_rows + 1    
+                split_words = row[2].replace(punc,"").split()
+                
 
+                #print split_words
+                cnt = Counter(split_words)
+
+                #print cnt
+
+                #Run the split words and check against our dirty words:
+                for word in search_words:
+                    #print word
+                    if cnt[word] > 0:
+                        dirty_comments = dirty_comments + 1
+                        insult = 1
+                        break
+
+                if insult == 1:
+                    writer.writerow(row+['Insult'])
+                else:
+                     writer.writerow(row+['Not an Insult'])
 
         print "number of rows"
         print total_rows
 
         print "dirty comments"
         print dirty_comments
+
+         
 
 
             #cnt holds the results of each check.    
